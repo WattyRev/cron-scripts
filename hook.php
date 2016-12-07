@@ -4,7 +4,7 @@ $salt = '2121181552';
 $pass = 'd8e07edcfed7693943051c6c274d3301';
 // End copy and paste
 // Defaults
-$projectName = 'alarm.wattydev.com'; // Your project name
+$projectName = 'cron-scripts'; // Your project name
 $email		 = 'spencer@wattydev.com'; // Email address you want pull notifcations to go to
 $from        = 'no-reply@wattydev.com'; // Who the email, when called, is sent "from"
 // Get varibles from query string
