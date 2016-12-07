@@ -12,4 +12,4 @@ function sendMail($to, $subject, $message, $from, $format) {
 		return false;
 	}
 }
-mail('wattyrev@gmail.com', 'test cron job', 'this is a test', 'noreply@wattydev.com', 'text');
+// sendMail('wattyrev@gmail.com', 'test cron job', 'this is a test', 'noreply@wattydev.com', 'text');
