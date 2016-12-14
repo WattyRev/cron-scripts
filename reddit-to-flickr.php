@@ -1,5 +1,11 @@
 <?php 
-include '_authenticateFlickr.php';
+// Clean out the tmp folder
+$files = glob('tmp/*');
+foreach($files as $file){ 
+    if(is_file($file)) {
+        unlink($file);
+    }
+}
 
 // Filter reddit results for those that link to an image
 function filter_items($item) {
@@ -38,23 +44,18 @@ $data = array_filter($data, "filter_items");
 // Clean up the data
 $data = array_map("parse_items", $data);
 
+// Define a directory where the images will be stored
 define('DIRECTORY', 'tmp');
 
-// Save the images locally
+// Save the images locally and send to flickr
 foreach($data as $item) {
+    // Save the file locally
     $content = file_get_contents($item->url);
     $fileName = end(explode("/", $item->url));
     file_put_contents(DIRECTORY . "/$fileName", $content);
+    
+    // Use IFTTT to upload the image to flickr
+    $url = "https://maker.ifttt.com/trigger/redditImageSaved/with/key/c1lyYFkke78adLBh823q-T?value1=" . urlencode($fileName) . "&value2=" . urlencode($item->title);
+    file_get_contents("https://maker.ifttt.com/trigger/redditImageSaved/with/key/c1lyYFkke78adLBh823q-T?value1=" . $fileName . "&value2=" . $item->title);
 }
-
-// Save images to flickr
-
-// Delete images locally
-$files = glob('tmp/*');
-foreach($files as $file){ 
-    if(is_file($file)) {
-        unlink($file);
-    }
-}
-
 ?>
