@@ -56,6 +56,11 @@ foreach($data as $item) {
     
     // Use IFTTT to upload the image to flickr
     $url = "https://maker.ifttt.com/trigger/redditImageSaved/with/key/c1lyYFkke78adLBh823q-T?value1=" . urlencode($fileName) . "&value2=" . urlencode($item->title);
-    file_get_contents("https://maker.ifttt.com/trigger/redditImageSaved/with/key/c1lyYFkke78adLBh823q-T?value1=" . $fileName . "&value2=" . $item->title);
+    $curl_handle=curl_init();
+    curl_setopt($curl_handle, CURLOPT_URL, $url);
+    curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+    curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+    $query = curl_exec($curl_handle);
+    curl_close($curl_handle);
 }
 ?>
