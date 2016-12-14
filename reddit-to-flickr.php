@@ -11,7 +11,6 @@ foreach($files as $file){
 function filter_items($item) {
     $url = $item->data->url;
     $supported_image = array(
-        'gif',
         'jpg',
         'jpeg',
         'png'
