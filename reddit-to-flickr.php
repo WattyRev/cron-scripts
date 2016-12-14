@@ -1,4 +1,6 @@
 <?php 
+include '_authenticateFlickr.php';
+
 // Filter reddit results for those that link to an image
 function filter_items($item) {
     $url = $item->data->url;
@@ -36,10 +38,23 @@ $data = array_filter($data, "filter_items");
 // Clean up the data
 $data = array_map("parse_items", $data);
 
+define('DIRECTORY', 'tmp');
+
 // Save the images locally
-// foreach($data as $item) {
-//     copy($item->url, 'tmp/file.jpeg');
-// }
-var_dump($data);
+foreach($data as $item) {
+    $content = file_get_contents($item->url);
+    $fileName = end(explode("/", $item->url));
+    file_put_contents(DIRECTORY . "/$fileName", $content);
+}
+
+// Save images to flickr
+
+// Delete images locally
+$files = glob('tmp/*');
+foreach($files as $file){ 
+    if(is_file($file)) {
+        unlink($file);
+    }
+}
 
 ?>
