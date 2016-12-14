@@ -33,7 +33,7 @@ function parse_items($item) {
 };
 
 // Retrieve the data from Reddit
-$json = file_get_contents('https://www.reddit.com/r/all/top.json');
+$json = file_get_contents('https://www.reddit.com/r/AdviceAnimals+Seattle+aww+gaming+pics/top.json?sort=top&t=day');
 
 // Parse the JSON string to an object, then grab the property that contains the actual results
 $data = json_decode($json)->data->children;
