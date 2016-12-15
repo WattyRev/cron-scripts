@@ -46,14 +46,14 @@ $data = array_map("parse_items", $data);
 // Define a directory where the images will be stored
 define('DIRECTORY', 'tmp');
 
-// Save the images locally and send to flickr
+// Save the images locally and send to some social platform
 foreach($data as $item) {
     // Save the file locally
     $content = file_get_contents($item->url);
     $fileName = end(explode("/", $item->url));
     file_put_contents(DIRECTORY . "/$fileName", $content);
     
-    // Use IFTTT to upload the image to flickr
+    // Use IFTTT to upload the image to a social platform
     $url = "https://maker.ifttt.com/trigger/redditImageSaved/with/key/c1lyYFkke78adLBh823q-T?value1=" . urlencode($fileName) . "&value2=" . urlencode($item->title);
     $curl_handle=curl_init();
     curl_setopt($curl_handle, CURLOPT_URL, $url);
